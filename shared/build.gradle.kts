@@ -33,6 +33,9 @@ kotlin {
                 api("androidx.activity:activity-compose:1.9.0")
                 api("androidx.appcompat:appcompat:1.7.0")
                 api("androidx.core:core-ktx:1.13.1")
+
+                //For Android Unit Tests
+                implementation("androidx.compose.ui:ui-test-junit4:1.6.8")
             }
         }
         val iosX64Main by getting
