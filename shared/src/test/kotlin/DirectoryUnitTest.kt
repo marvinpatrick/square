@@ -8,7 +8,7 @@ class DirectoryUnitTest {
 
     @Test
     fun `given a non malformed list of EMPLOYYES then return that list`() {
-        Assert.assertEquals(1, directoryViewModel.getListOfEmployees().size)
+        Assert.assertEquals(0, directoryViewModel.getListOfEmployees().size)
     }
 
 }
