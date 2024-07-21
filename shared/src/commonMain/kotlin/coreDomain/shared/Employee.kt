@@ -1,4 +1,4 @@
-package coreDomain.directory
+package coreDomain.shared
 
 class Employee(
     val uuid: String,

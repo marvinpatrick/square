@@ -1,6 +1,6 @@
 package genericDomain.networking.model
 
-import coreDomain.directory.Employee
+import coreDomain.shared.Employee
 import kotlinx.serialization.Serializable
 
 @Serializable
