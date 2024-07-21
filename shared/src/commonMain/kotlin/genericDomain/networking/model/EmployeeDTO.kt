@@ -1,7 +1,12 @@
 package genericDomain.networking.model
 
-import businessDomain.directory.Employee
+import coreDomain.directory.Employee
+import kotlinx.serialization.Serializable
 
+@Serializable
+data class EmployeeDirectoryDTO(val employees: List<EmployeeDTO>)
+
+@Serializable
 data class EmployeeDTO(
     val biography: String? = null,
     val email_address: String? = null,

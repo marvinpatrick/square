@@ -1,5 +1,6 @@
 plugins {
     kotlin("multiplatform")
+    kotlin("plugin.serialization") version "1.9.21"
     id("com.android.library")
     id("org.jetbrains.compose")
 }
@@ -50,6 +51,9 @@ kotlin {
 
                 //For Android Unit Tests
                 implementation("androidx.compose.ui:ui-test-junit4:1.6.8")
+
+                //For HTTP Requests
+                implementation("io.ktor:ktor-client-okhttp:2.3.12")
             }
         }
         val iosX64Main by getting
@@ -60,6 +64,10 @@ kotlin {
             iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
+            dependencies {
+                //For HTTP Requests
+                implementation("io.ktor:ktor-client-darwin:2.3.12")
+            }
         }
     }
 }

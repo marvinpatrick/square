@@ -1,4 +1,4 @@
-import businessDomain.directory.DirectoryViewModel
+import coreDomain.directory.DirectoryViewModel
 import org.junit.Assert
 import org.junit.Test
 
@@ -8,7 +8,8 @@ class DirectoryUnitTest : BaseKoinTest() {
 
     @Test
     fun `given a non malformed list of EMPLOYYES then return that list`() {
-        Assert.assertEquals(0, directoryViewModel.getListOfEmployees().size)
+        directoryViewModel.getEmployees()
+        Assert.assertEquals(0, directoryViewModel.employees.value?.size)
     }
 
 }

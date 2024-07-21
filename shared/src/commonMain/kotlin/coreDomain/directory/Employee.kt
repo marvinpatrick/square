@@ -1,4 +1,4 @@
-package businessDomain.directory
+package coreDomain.directory
 
 class Employee(
     val uuid: String,
