@@ -33,6 +33,7 @@ kotlin {
                 //For Multiplatform Dependency Injection
                 implementation("io.insert-koin:koin-core:3.5.6")
                 implementation("io.insert-koin:koin-compose:1.1.5")
+                implementation("io.insert-koin:koin-test:3.5.6")
 
                 //For HTTP Requests
                 implementation("io.ktor:ktor-client-core:2.3.12")

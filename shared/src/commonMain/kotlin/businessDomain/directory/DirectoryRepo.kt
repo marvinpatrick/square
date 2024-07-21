@@ -1,4 +1,4 @@
 package businessDomain.directory
 
-class DirectoryRepo {
+class DirectoryRepo(private val directoryAPI: DirectoryAPI) {
 }
