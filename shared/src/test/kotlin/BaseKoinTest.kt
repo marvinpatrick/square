@@ -2,6 +2,7 @@ import genericDomain.dependencyInjection.appModule
 import org.koin.core.context.loadKoinModules
 import org.koin.core.context.startKoin
 import org.koin.test.KoinTest
+import org.koin.test.inject
 
 abstract class BaseKoinTest : KoinTest {
 
@@ -16,4 +17,8 @@ abstract class BaseKoinTest : KoinTest {
         }
     }
 
+    inline fun <reified T> testInject(): T {
+        val clazz: T by inject()
+        return clazz
+    }
 }
