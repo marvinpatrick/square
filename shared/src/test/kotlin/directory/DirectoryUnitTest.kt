@@ -53,10 +53,10 @@ class DirectoryUnitTest {
     @Test
     fun `given a low memory with many EMPLOYEES ensure none are returned`() = runTest {
         val stubEmployee = EmployeeBuilder().build()
-        val marvinPatrick = EmployeeBuilder().withFullName("Justine Mason").build()
+        val justineMason = EmployeeBuilder().withFullName("Justine Mason").build()
         val fakeDirectory = directoryRepoBuilder
             .withEmployee(stubEmployee)
-            .withEmployee(marvinPatrick)
+            .withEmployee(justineMason)
             .build()
         directoryViewModel = DirectoryViewModel(fakeDirectory)
 
@@ -72,8 +72,8 @@ class DirectoryUnitTest {
             directoryViewModel.employees.value.contains(stubEmployee)
         )
         Assert.assertFalse(
-            "$marvinPatrick made the list when it shouldn't have",
-            directoryViewModel.employees.value.contains(marvinPatrick)
+            "$justineMason made the list when it shouldn't have",
+            directoryViewModel.employees.value.contains(justineMason)
         )
     }
 
