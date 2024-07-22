@@ -18,7 +18,7 @@ class DirectoryUnitTest {
         val fakeDirectory = directoryRepoBuilder.withNoEmployees().build()
         directoryViewModel = DirectoryViewModel(fakeDirectory)
 
-        directoryViewModel.getEmployees()
+        directoryViewModel.getEmployees(isSufficientMemory = { true })
 
         Assert.assertEquals(0, directoryViewModel.employees.value.size)
     }
@@ -33,7 +33,7 @@ class DirectoryUnitTest {
             .build()
         directoryViewModel = DirectoryViewModel(fakeDirectory)
 
-        directoryViewModel.getEmployees()
+        directoryViewModel.getEmployees(isSufficientMemory = { true })
 
         Assert.assertEquals(
             "The list is short or large ${directoryViewModel.employees.value.toList()}",
@@ -48,6 +48,35 @@ class DirectoryUnitTest {
         Assert.assertEquals(
             "$marvinPatrick didn't make the list",
             marvinPatrick,
+            directoryViewModel.employees.value.getOrNull(1)
+        )
+    }
+
+    @Test
+    fun `given a low memory with many EMPLOYEES ensure none are returned`() = runTest {
+        val stubEmployee = EmployeeBuilder().build()
+        val marvinPatrick = EmployeeBuilder().withFullName("Marvin Patrick").build()
+        val fakeDirectory = directoryRepoBuilder
+            .withEmployee(stubEmployee)
+            .withEmployee(marvinPatrick)
+            .build()
+        directoryViewModel = DirectoryViewModel(fakeDirectory)
+
+        directoryViewModel.getEmployees(isSufficientMemory = { false })
+
+        Assert.assertEquals(
+            "The list is short or large ${directoryViewModel.employees.value.toList()}",
+            0,
+            directoryViewModel.employees.value.size
+        )
+        Assert.assertEquals(
+            "$stubEmployee made the list when it shouldn't have",
+            null,
+            directoryViewModel.employees.value.getOrNull(0)
+        )
+        Assert.assertEquals(
+            "$marvinPatrick made the list when it shouldn't have",
+            null,
             directoryViewModel.employees.value.getOrNull(1)
         )
     }

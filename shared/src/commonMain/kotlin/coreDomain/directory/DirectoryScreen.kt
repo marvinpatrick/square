@@ -39,11 +39,11 @@ import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
-fun DirectoryScreen() {
+fun DirectoryScreen(isSufficientMemory: () -> Boolean) {
     val directoryViewModel: DirectoryViewModel = KoinInjector.inject()
     val screenState = directoryViewModel.state.collectAsState()
     LaunchedEffect(true) {
-        directoryViewModel.getEmployees()
+        directoryViewModel.getEmployees(isSufficientMemory)
     }
     when (screenState.value) {
         ScreenState.Loading -> {
@@ -51,14 +51,15 @@ fun DirectoryScreen() {
         }
 
         ScreenState.Ready -> {
-            DirectoryScreenLayout(directoryViewModel.employees.value)
+            DirectoryScreenLayout(
+                employees = directoryViewModel.employees.value,
+                isSufficientMemory = isSufficientMemory
+            )
         }
 
         ScreenState.Error -> {
             DirectoryErrorLayout(
-                retry = {
-                    directoryViewModel.getEmployees()
-                }
+                retry = { directoryViewModel.getEmployees(isSufficientMemory) }
             )
         }
     }
@@ -78,13 +79,13 @@ private fun DirectoryLoadingLayout() {
 
 @Composable
 @OptIn(ExperimentalResourceApi::class)
-private fun DirectoryScreenLayout(employees: List<Employee>) {
+private fun DirectoryScreenLayout(employees: List<Employee>, isSufficientMemory: () -> Boolean) {
     val directoryViewModel: DirectoryViewModel = KoinInjector.inject()
     Column(Modifier.fillMaxWidth().padding(top = 16.dp, start = 16.dp, end = 16.dp)) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(text = "Employee Directory", fontSize = 16.sp, fontWeight = FontWeight.Light)
             Spacer(modifier = Modifier.weight(1f))
-            FloatingActionButton(onClick = { directoryViewModel.getEmployees() }) {
+            FloatingActionButton(onClick = { directoryViewModel.getEmployees(isSufficientMemory) }) {
                 Image(painter = painterResource(ImageRes.refresh), contentDescription = null)
             }
         }

@@ -5,9 +5,9 @@ import genericDomain.dependencyInjection.appModule
 import org.koin.compose.KoinApplication
 
 @Composable
-fun App() {
+fun App(isSufficientMemory: () -> Boolean) {
     KoinApplication(application = { modules(appModule) }) {
-        MaterialTheme { DirectoryScreen() }
+        MaterialTheme { DirectoryScreen(isSufficientMemory) }
     }
 }
 

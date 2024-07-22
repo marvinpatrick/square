@@ -19,14 +19,19 @@ class DirectoryViewModel(private val directoryRepo: DirectoryRepo) : BaseKMMView
     private val _employees = MutableStateFlow<List<Employee>>(emptyList())
     val employees: StateFlow<List<Employee>> = _employees
 
-    fun getEmployees() {
-        _state.value = ScreenState.Loading
+    fun getEmployees(isSufficientMemory: () -> Boolean) {
         CoroutineScope(Dispatchers.IO).launch {
-            val result = directoryRepo.getEmployees()
-            result?.let {
-                _employees.emit(result)
-                _state.emit(ScreenState.Ready)
-            } ?: run {
+            if (isSufficientMemory()) {
+                _state.value = ScreenState.Loading
+                val result = directoryRepo.getEmployees()
+                result?.let {
+                    _employees.emit(result)
+                    _state.emit(ScreenState.Ready)
+                } ?: run {
+                    _employees.emit(emptyList())
+                    _state.emit(ScreenState.Error)
+                }
+            } else {
                 _employees.emit(emptyList())
                 _state.emit(ScreenState.Error)
             }
