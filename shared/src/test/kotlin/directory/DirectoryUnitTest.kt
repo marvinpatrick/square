@@ -9,13 +9,11 @@ import testBuilders.EmployeeBuilder
 
 class DirectoryUnitTest {
 
-    private val directoryRepoBuilder = DirectoryRepoBuilder()
-    private val employeeBuilder = EmployeeBuilder()
-
     private lateinit var directoryViewModel: DirectoryViewModel
 
     @Test
     fun `given a list of 0 EMPLOYYES then return an empty list`() = runTest {
+        val directoryRepoBuilder = DirectoryRepoBuilder()
         val fakeDirectory = directoryRepoBuilder.withNoEmployees().build()
         directoryViewModel = DirectoryViewModel(fakeDirectory)
 
@@ -26,6 +24,8 @@ class DirectoryUnitTest {
 
     @Test
     fun `given a response with many EMPLOYEES ensure they are all returned`() = runTest {
+        val directoryRepoBuilder = DirectoryRepoBuilder()
+        val employeeBuilder = EmployeeBuilder()
         val stubEmployee = employeeBuilder.build()
         val marvinPatrick = employeeBuilder.withFullName("Marvin Patrick").build()
         val fakeDirectory = directoryRepoBuilder
