@@ -1,6 +1,7 @@
 package coreDomain.directory
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -24,7 +25,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coreDomain.shared.Employee
@@ -52,7 +55,11 @@ fun DirectoryScreen() {
         }
 
         ScreenState.Error -> {
-            DirectoryErrorLayout()
+            DirectoryErrorLayout(
+                retry = {
+                    directoryViewModel.getEmployees()
+                }
+            )
         }
     }
 
@@ -91,13 +98,27 @@ private fun DirectoryScreenLayout(employees: List<Employee>) {
 }
 
 @Composable
-private fun DirectoryErrorLayout() {
+@OptIn(ExperimentalResourceApi::class)
+private fun DirectoryErrorLayout(retry: () -> Unit) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        Image(
+            modifier = Modifier.size(175.dp),
+            painter = painterResource(ImageRes.wifi_off),
+            contentDescription = null
+        )
+        Spacer(modifier = Modifier.size(16.dp))
         Text(text = "Error")
+        Spacer(modifier = Modifier.size(16.dp))
+        Text(
+            modifier = Modifier.clickable { retry() },
+            text = "Retry",
+            color = Color.Blue,
+            textDecoration = TextDecoration.Underline
+        )
     }
 }
 

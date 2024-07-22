@@ -22,8 +22,13 @@ class DirectoryViewModel(private val directoryRepo: DirectoryRepo) : BaseKMMView
         _state.value = ScreenState.Loading
         CoroutineScope(Dispatchers.IO).launch {
             val result = directoryRepo.getEmployees()
-            _employees.emit(result ?: emptyList())
-            _state.emit(ScreenState.Ready)
+            result?.let {
+                _employees.emit(result)
+                _state.emit(ScreenState.Loading)
+            } ?: run {
+                _employees.emit(emptyList())
+                _state.emit(ScreenState.Error)
+            }
         }
     }
 
