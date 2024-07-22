@@ -92,7 +92,6 @@ private fun DirectoryScreenLayout(employees: List<Employee>) {
 }
 
 @Composable
-@OptIn(ExperimentalResourceApi::class)
 private fun EmployeeCard(employee: Employee) {
     Card(
         modifier = Modifier.fillMaxWidth().height(200.dp),
@@ -102,6 +101,7 @@ private fun EmployeeCard(employee: Employee) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 CoilImage(
                     modifier = Modifier.size(100.dp).clip(CircleShape),
+                    placeHolder = ImageRes.placeholder,
                     url = employee.photoUrlSmall ?: ""
                 )
                 Spacer(modifier = Modifier.width(4.dp))
