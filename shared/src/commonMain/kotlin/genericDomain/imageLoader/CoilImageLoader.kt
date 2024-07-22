@@ -20,6 +20,7 @@ fun CoilImage(
         model = url,
         contentDescription = null,
         contentScale = contentScale,
-        placeholder = painterResource(placeHolder)
+        placeholder = painterResource(placeHolder),
+        error = painterResource(placeHolder)
     )
 }
