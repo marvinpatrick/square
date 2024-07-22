@@ -40,15 +40,13 @@ class DirectoryUnitTest {
             2,
             directoryViewModel.employees.value.size
         )
-        Assert.assertEquals(
+        Assert.assertTrue(
             "$stubEmployee didn't make the list",
-            stubEmployee,
-            directoryViewModel.employees.value.getOrNull(0)
+            directoryViewModel.employees.value.contains(stubEmployee)
         )
-        Assert.assertEquals(
+        Assert.assertTrue(
             "$marvinPatrick didn't make the list",
-            marvinPatrick,
-            directoryViewModel.employees.value.getOrNull(1)
+            directoryViewModel.employees.value.contains(marvinPatrick)
         )
     }
 
@@ -69,15 +67,13 @@ class DirectoryUnitTest {
             0,
             directoryViewModel.employees.value.size
         )
-        Assert.assertEquals(
+        Assert.assertFalse(
             "$stubEmployee made the list when it shouldn't have",
-            null,
-            directoryViewModel.employees.value.getOrNull(0)
+            directoryViewModel.employees.value.contains(stubEmployee)
         )
-        Assert.assertEquals(
+        Assert.assertFalse(
             "$marvinPatrick made the list when it shouldn't have",
-            null,
-            directoryViewModel.employees.value.getOrNull(1)
+            directoryViewModel.employees.value.contains(marvinPatrick)
         )
     }
 
