@@ -2,6 +2,7 @@ package directory
 
 import coreDomain.directory.DirectoryViewModel
 import kotlinx.coroutines.test.runTest
+import org.junit.After
 import org.junit.Assert
 import org.junit.Test
 import testBuilders.DirectoryRepoBuilder
@@ -9,7 +10,12 @@ import testBuilders.EmployeeBuilder
 
 class DirectoryUnitTest {
 
-    private lateinit var directoryViewModel: DirectoryViewModel
+    private var directoryViewModel: DirectoryViewModel? = null
+
+    @After
+    fun tearDown() {
+        directoryViewModel = null
+    }
 
     @Test
     fun `given a list of 0 EMPLOYYES then return an empty list`() = runTest {
@@ -17,9 +23,9 @@ class DirectoryUnitTest {
         val fakeDirectory = directoryRepoBuilder.withNoEmployees().build()
         directoryViewModel = DirectoryViewModel(fakeDirectory)
 
-        directoryViewModel.getEmployees()
+        directoryViewModel?.getEmployees()
 
-        Assert.assertEquals(0, directoryViewModel.employees.value.size)
+        Assert.assertEquals(0, directoryViewModel?.employees?.value?.size)
     }
 
     @Test
@@ -34,11 +40,11 @@ class DirectoryUnitTest {
             .build()
         directoryViewModel = DirectoryViewModel(fakeDirectory)
 
-        directoryViewModel.getEmployees()
+        directoryViewModel?.getEmployees()
 
-        Assert.assertEquals(2, directoryViewModel.employees.value.size)
-        Assert.assertEquals(stubEmployee, directoryViewModel.employees.value.getOrNull(0))
-        Assert.assertEquals(marvinPatrick, directoryViewModel.employees.value.getOrNull(1))
+        Assert.assertEquals(2, directoryViewModel?.employees?.value?.size)
+        Assert.assertEquals(stubEmployee, directoryViewModel?.employees?.value?.getOrNull(0))
+        Assert.assertEquals(marvinPatrick, directoryViewModel?.employees?.value?.getOrNull(1))
     }
 
 }
