@@ -14,31 +14,31 @@ class DirectoryUnitTest {
 
     private lateinit var directoryViewModel: DirectoryViewModel
 
-    @Test
-    fun `given a list of 0 EMPLOYYES then return an empty list`() = runTest {
-        val fakeDirectory = directoryRepoBuilder.withNoEmployees().build()
-        directoryViewModel = DirectoryViewModel(fakeDirectory)
-
-        directoryViewModel.getEmployees()
-
-        Assert.assertEquals(0, directoryViewModel.employees.value.size)
-    }
-
 //    @Test
-//    fun `given a response with many EMPLOYEES ensure they are all returned`() = runTest {
-//        val stubEmployee = employeeBuilder.build()
-//        val marvinPatrick = employeeBuilder.withFullName("Marvin Patrick").build()
-//        val fakeDirectory = directoryRepoBuilder
-//            .withEmployee(stubEmployee)
-//            .withEmployee(marvinPatrick)
-//            .build()
+//    fun `given a list of 0 EMPLOYYES then return an empty list`() = runTest {
+//        val fakeDirectory = directoryRepoBuilder.withNoEmployees().build()
 //        directoryViewModel = DirectoryViewModel(fakeDirectory)
 //
 //        directoryViewModel.getEmployees()
 //
-//        Assert.assertEquals(2, directoryViewModel.employees.value.size)
-//        Assert.assertEquals(stubEmployee, directoryViewModel.employees.value.getOrNull(0))
-//        Assert.assertEquals(marvinPatrick, directoryViewModel.employees.value.getOrNull(1))
+//        Assert.assertEquals(0, directoryViewModel.employees.value.size)
 //    }
+
+    @Test
+    fun `given a response with many EMPLOYEES ensure they are all returned`() = runTest {
+        val stubEmployee = employeeBuilder.build()
+        val marvinPatrick = employeeBuilder.withFullName("Marvin Patrick").build()
+        val fakeDirectory = directoryRepoBuilder
+            .withEmployee(stubEmployee)
+            .withEmployee(marvinPatrick)
+            .build()
+        directoryViewModel = DirectoryViewModel(fakeDirectory)
+
+        directoryViewModel.getEmployees()
+
+        Assert.assertEquals(2, directoryViewModel.employees.value.size)
+        Assert.assertEquals(stubEmployee, directoryViewModel.employees.value.getOrNull(0))
+        Assert.assertEquals(marvinPatrick, directoryViewModel.employees.value.getOrNull(1))
+    }
 
 }
