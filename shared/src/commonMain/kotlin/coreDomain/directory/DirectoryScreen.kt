@@ -82,15 +82,46 @@ private fun DirectoryScreenLayout(employees: List<Employee>) {
             }
         }
         Spacer(modifier = Modifier.height(16.dp))
-        LazyColumn(
-            modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
-            items(employees) { employee ->
-                EmployeeCard(employee)
-            }
-            item { Spacer(modifier = Modifier.height(12.dp)) }
+        if (employees.isNotEmpty()) {
+            EmployeeDirectory(employees)
+        } else {
+            EmptyDirectoryScreen()
         }
+    }
+}
+
+@Composable
+private fun DirectoryErrorLayout() {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(text = "Error")
+    }
+}
+
+@Composable
+private fun EmployeeDirectory(employees: List<Employee>) {
+    LazyColumn(
+        modifier = Modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(12.dp)
+    ) {
+        items(employees) { employee ->
+            EmployeeCard(employee)
+        }
+        item { Spacer(modifier = Modifier.height(12.dp)) }
+    }
+}
+
+@Composable
+private fun EmptyDirectoryScreen() {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+
     }
 }
 
@@ -122,16 +153,5 @@ private fun EmployeeCard(employee: Employee) {
                 }
             }
         }
-    }
-}
-
-@Composable
-private fun DirectoryErrorLayout() {
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(text = "Error")
     }
 }
