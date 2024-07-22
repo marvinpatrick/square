@@ -35,9 +35,21 @@ class DirectoryUnitTest {
 
         directoryViewModel.getEmployees()
 
-        Assert.assertEquals(2, directoryViewModel.employees.value.size)
-        Assert.assertEquals(stubEmployee, directoryViewModel.employees.value.getOrNull(0))
-        Assert.assertEquals(marvinPatrick, directoryViewModel.employees.value.getOrNull(1))
+        Assert.assertEquals(
+            "The list is short or large ${directoryViewModel.employees.value.toList()}",
+            2,
+            directoryViewModel.employees.value.size
+        )
+        Assert.assertEquals(
+            "The order isn't as expected",
+            stubEmployee,
+            directoryViewModel.employees.value.getOrNull(0)
+        )
+        Assert.assertEquals(
+            "The order isn't as expected",
+            marvinPatrick,
+            directoryViewModel.employees.value.getOrNull(1)
+        )
     }
 
 }
