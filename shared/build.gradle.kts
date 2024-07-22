@@ -41,6 +41,10 @@ kotlin {
                 implementation("io.ktor:ktor-client-logging:2.3.12")
                 implementation("io.ktor:ktor-client-content-negotiation:2.3.12")
                 implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.12")
+
+                //For Image Loading and Rendering
+                implementation("io.coil-kt.coil3:coil-compose:3.0.0-alpha08")
+                implementation("io.coil-kt.coil3:coil-network-ktor:3.0.0-alpha08")
             }
         }
         val androidMain by getting {

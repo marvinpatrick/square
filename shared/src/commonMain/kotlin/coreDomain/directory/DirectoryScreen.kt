@@ -9,9 +9,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.FloatingActionButton
@@ -20,6 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -27,6 +30,7 @@ import coreDomain.shared.Employee
 import coreDomain.shared.ImageRes
 import coreDomain.shared.ScreenState
 import genericDomain.dependencyInjection.KoinInjector
+import genericDomain.imageLoader.CoilImage
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 
@@ -91,14 +95,14 @@ private fun DirectoryScreenLayout(employees: List<Employee>) {
 @OptIn(ExperimentalResourceApi::class)
 private fun EmployeeCard(employee: Employee) {
     Card(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth().height(200.dp),
         shape = RoundedCornerShape(20.dp)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Image(
-                    painter = painterResource(ImageRes.placeholder),
-                    contentDescription = null
+                CoilImage(
+                    modifier = Modifier.size(100.dp).clip(CircleShape),
+                    url = employee.photoUrlSmall ?: ""
                 )
                 Spacer(modifier = Modifier.width(4.dp))
                 Text(text = employee.fullName)
