@@ -1,5 +1,6 @@
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.unit.Dp
 import coreDomain.directory.DirectoryScreen
 import genericDomain.dependencyInjection.appModule
 import org.koin.compose.KoinApplication
@@ -11,4 +12,9 @@ fun App(isSufficientMemory: () -> Boolean) {
     }
 }
 
-expect fun getPlatformName(): String
+expect fun getDeviceType(): DeviceType
+
+enum class DeviceType {
+    ANDROID,
+    IPHONE
+}

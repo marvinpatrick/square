@@ -1,8 +1,10 @@
 package coreDomain.directory
 
+import DeviceType
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -18,7 +20,9 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.FloatingActionButton
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -35,6 +39,7 @@ import coreDomain.shared.ImageRes
 import coreDomain.shared.ScreenState
 import genericDomain.dependencyInjection.KoinInjector
 import genericDomain.imageLoader.CoilImage
+import getDeviceType
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 
@@ -78,20 +83,35 @@ private fun DirectoryLoadingLayout() {
 }
 
 @Composable
-@OptIn(ExperimentalResourceApi::class)
 private fun DirectoryScreenLayout(employees: List<Employee>, isSufficientMemory: () -> Boolean) {
-    val directoryViewModel: DirectoryViewModel = KoinInjector.inject()
-    Column(Modifier.fillMaxWidth().padding(top = 16.dp, start = 16.dp, end = 16.dp)) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            Text(text = "Employee Directory", fontSize = 16.sp, fontWeight = FontWeight.Light)
-            Spacer(modifier = Modifier.weight(1f))
-            FloatingActionButton(onClick = { directoryViewModel.getEmployees(isSufficientMemory) }) {
-                Image(painter = painterResource(ImageRes.refresh), contentDescription = null)
-            }
+    Column(Modifier.fillMaxWidth()) {
+        if (getDeviceType() == DeviceType.ANDROID) {
+            TopAppBar(content = {
+                Text(
+                    text = "Employee Directory",
+                    color = MaterialTheme.typography.body1.color
+                )
+            })
         }
         if (employees.isNotEmpty()) {
-            Spacer(modifier = Modifier.height(16.dp))
-            EmployeeDirectory(employees)
+            if (getDeviceType() == DeviceType.IPHONE) {
+                Spacer(modifier = Modifier.height(48.dp))
+                EmployeeDirectory(employees = employees, isSufficientMemory = isSufficientMemory)
+            } else {
+                Box {
+                    EmployeeDirectory(
+                        employees = employees,
+                        isSufficientMemory = isSufficientMemory
+                    )
+                    Column(
+                        modifier = Modifier.fillMaxSize().padding(bottom = 24.dp, end = 16.dp),
+                        horizontalAlignment = Alignment.End,
+                        verticalArrangement = Arrangement.Bottom
+                    ) {
+                        RefreshButton(isSufficientMemory = isSufficientMemory)
+                    }
+                }
+            }
         } else {
             EmptyDirectory()
         }
@@ -124,15 +144,41 @@ private fun DirectoryErrorLayout(retry: () -> Unit) {
 }
 
 @Composable
-private fun EmployeeDirectory(employees: List<Employee>) {
-    LazyColumn(
-        modifier = Modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(12.dp)
-    ) {
-        items(employees) { employee ->
-            EmployeeCard(employee)
+private fun EmployeeDirectory(employees: List<Employee>, isSufficientMemory: () -> Boolean) {
+    LazyColumn(modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp)) {
+        if (getDeviceType() == DeviceType.IPHONE) {
+            item {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(
+                        text = "Employee Directory",
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Light
+                    )
+                    Spacer(modifier = Modifier.weight(1f))
+                    RefreshButton(isSufficientMemory)
+                }
+            }
         }
         item { Spacer(modifier = Modifier.height(12.dp)) }
+        items(employees) { employee ->
+            EmployeeCard(employee)
+            Spacer(modifier = Modifier.height(12.dp))
+        }
+        item { Spacer(modifier = Modifier.height(12.dp)) }
+    }
+}
+
+@Composable
+@OptIn(ExperimentalResourceApi::class)
+private fun RefreshButton(isSufficientMemory: () -> Boolean) {
+    val directoryViewModel: DirectoryViewModel = KoinInjector.inject()
+    FloatingActionButton(onClick = {
+        directoryViewModel.getEmployees(isSufficientMemory)
+    }) {
+        Image(
+            painter = painterResource(ImageRes.refresh),
+            contentDescription = null
+        )
     }
 }
 

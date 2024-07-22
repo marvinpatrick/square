@@ -1,6 +1,6 @@
 import androidx.compose.runtime.Composable
 
-actual fun getPlatformName(): String = "Android"
+actual fun getDeviceType() = DeviceType.ANDROID
 
 @Composable
 fun MainView(isSufficientMemory: () -> Boolean) = App(isSufficientMemory)
