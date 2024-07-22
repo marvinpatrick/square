@@ -6,7 +6,5 @@ import coreDomain.directory.DirectoryViewModel
 import org.koin.dsl.module
 
 val appModule = module {
-    single { DirectoryAPI() }
-    single { DirectoryRepoImpl(DirectoryAPI()) }
     single { DirectoryViewModel(DirectoryRepoImpl(DirectoryAPI())) }
 }
