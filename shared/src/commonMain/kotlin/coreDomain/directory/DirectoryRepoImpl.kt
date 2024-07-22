@@ -1,8 +1,8 @@
 package coreDomain.directory
 
 import coreDomain.shared.Employee
-import genericDomain.networking.KtorRepo
 import genericDomain.networking.GOOD
+import genericDomain.networking.KtorRepo
 import genericDomain.networking.model.EmployeeDirectoryDTO
 
 class DirectoryRepoImpl(private val directoryAPI: DirectoryAPI) : DirectoryRepo, KtorRepo() {

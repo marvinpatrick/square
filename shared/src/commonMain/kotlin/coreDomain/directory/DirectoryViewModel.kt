@@ -19,10 +19,11 @@ class DirectoryViewModel(private val directoryRepo: DirectoryRepo) : BaseKMMView
     val employees: StateFlow<List<Employee>> = _employees
 
     fun getEmployees() {
+        _state.value = ScreenState.Loading
         CoroutineScope(Dispatchers.IO).launch {
             val result = directoryRepo.getEmployees()
-            _employees.value = result ?: emptyList()
-            _state.value = ScreenState.Ready
+            _employees.emit(result ?: emptyList())
+            _state.emit(ScreenState.Ready)
         }
     }
 
