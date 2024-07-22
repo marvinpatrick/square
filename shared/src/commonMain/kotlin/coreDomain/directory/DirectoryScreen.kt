@@ -88,11 +88,11 @@ private fun DirectoryScreenLayout(employees: List<Employee>) {
                 Image(painter = painterResource(ImageRes.refresh), contentDescription = null)
             }
         }
-        Spacer(modifier = Modifier.height(16.dp))
         if (employees.isNotEmpty()) {
+            Spacer(modifier = Modifier.height(16.dp))
             EmployeeDirectory(employees)
         } else {
-            EmptyDirectoryScreen()
+            EmptyDirectory()
         }
     }
 }
@@ -136,13 +136,23 @@ private fun EmployeeDirectory(employees: List<Employee>) {
 }
 
 @Composable
-private fun EmptyDirectoryScreen() {
+@OptIn(ExperimentalResourceApi::class)
+private fun EmptyDirectory() {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
+        Image(
+            modifier = Modifier.size(175.dp),
+            painter = painterResource(ImageRes.team),
+            contentDescription = null
+        )
+        Spacer(modifier = Modifier.size(16.dp))
+        Text(text = "Sit Tight")
+        Spacer(modifier = Modifier.size(16.dp))
+        Text(text = "We're Building an Awesome Team")
+        Spacer(modifier = Modifier.height(150.dp))
     }
 }
 
