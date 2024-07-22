@@ -94,7 +94,7 @@ private fun DirectoryScreenLayout(employees: List<Employee>) {
 @Composable
 private fun EmployeeCard(employee: Employee) {
     Card(
-        modifier = Modifier.fillMaxWidth().height(200.dp),
+        modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(20.dp)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
@@ -105,7 +105,18 @@ private fun EmployeeCard(employee: Employee) {
                     url = employee.photoUrlSmall ?: ""
                 )
                 Spacer(modifier = Modifier.width(4.dp))
-                Text(text = employee.fullName)
+                Column {
+                    Text(
+                        text = employee.fullName,
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.SemiBold
+                    )
+                    Text(
+                        text = employee.team,
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Light
+                    )
+                }
             }
         }
     }
