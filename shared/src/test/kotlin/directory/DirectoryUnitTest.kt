@@ -14,7 +14,7 @@ class DirectoryUnitTest {
     private lateinit var directoryViewModel: DirectoryViewModel
 
     @Test
-    fun `given a list of 0 EMPLOYYES then return an empty list`() = runTest {
+    fun `given 0 employees then return an empty list`() = runTest {
         val fakeDirectory = directoryRepoBuilder.withNoEmployees().build()
         directoryViewModel = DirectoryViewModel(fakeDirectory)
 
@@ -24,7 +24,7 @@ class DirectoryUnitTest {
     }
 
     @Test
-    fun `given a response with many EMPLOYEES ensure they are all returned`() = runTest {
+    fun `given many EMPLOYEES ensure they are all returned`() = runTest {
         val stubEmployee = EmployeeBuilder().build()
         val marvinPatrick = EmployeeBuilder().withFullName("Marvin Patrick").build()
         val fakeDirectory = directoryRepoBuilder
