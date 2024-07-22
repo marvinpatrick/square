@@ -7,7 +7,6 @@ val GOOD = HttpStatusCode.OK
 
 abstract class KtorRepo {
 
-
     suspend inline fun <reified T> getResponse(httpResponse: ApiResponse): T {
         return httpResponse.call.body<T>()
     }
