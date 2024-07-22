@@ -53,7 +53,7 @@ class DirectoryUnitTest {
     @Test
     fun `given a low memory with many EMPLOYEES ensure none are returned`() = runTest {
         val stubEmployee = EmployeeBuilder().build()
-        val marvinPatrick = EmployeeBuilder().withFullName("Marvin Patrick").build()
+        val marvinPatrick = EmployeeBuilder().withFullName("Justine Mason").build()
         val fakeDirectory = directoryRepoBuilder
             .withEmployee(stubEmployee)
             .withEmployee(marvinPatrick)
