@@ -1,4 +1,4 @@
-package coreDomain.directory
+package coreDomain.shared
 
 import coreDomain.shared.Employee
 

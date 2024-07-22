@@ -1,5 +1,6 @@
 package coreDomain.directory
 
+import coreDomain.shared.DirectoryRepo
 import coreDomain.shared.Employee
 import coreDomain.shared.ScreenState
 import genericDomain.viewModel.BaseKMMViewModel

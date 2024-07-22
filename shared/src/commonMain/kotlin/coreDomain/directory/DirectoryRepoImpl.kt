@@ -1,5 +1,6 @@
 package coreDomain.directory
 
+import coreDomain.shared.DirectoryRepo
 import coreDomain.shared.Employee
 import genericDomain.networking.GOOD
 import genericDomain.networking.KtorRepo
