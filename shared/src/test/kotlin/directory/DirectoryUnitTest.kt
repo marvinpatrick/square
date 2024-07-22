@@ -41,12 +41,12 @@ class DirectoryUnitTest {
             directoryViewModel.employees.value.size
         )
         Assert.assertEquals(
-            "The order isn't as expected",
+            "$stubEmployee didn't make the list",
             stubEmployee,
             directoryViewModel.employees.value.getOrNull(0)
         )
         Assert.assertEquals(
-            "The order isn't as expected",
+            "$marvinPatrick didn't make the list",
             marvinPatrick,
             directoryViewModel.employees.value.getOrNull(1)
         )
