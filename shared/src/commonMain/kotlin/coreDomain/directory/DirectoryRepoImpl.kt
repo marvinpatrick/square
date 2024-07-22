@@ -12,10 +12,8 @@ class DirectoryRepoImpl(private val directoryAPI: DirectoryAPI) : DirectoryRepo,
             directoryAPI.getEmployees().getOrNull()?.let { apiResponse ->
                 if (apiResponse.status == GOOD) {
                     return getResponse<EmployeeDirectoryDTO>(apiResponse).employees.map {
-                        it.toEmployee() ?: return null
+                        it.toEmployee() ?: return emptyList()
                     }
-                } else {
-                    return null
                 }
             }
             return null

@@ -24,7 +24,7 @@ class DirectoryViewModel(private val directoryRepo: DirectoryRepo) : BaseKMMView
             val result = directoryRepo.getEmployees()
             result?.let {
                 _employees.emit(result)
-                _state.emit(ScreenState.Loading)
+                _state.emit(ScreenState.Ready)
             } ?: run {
                 _employees.emit(emptyList())
                 _state.emit(ScreenState.Error)

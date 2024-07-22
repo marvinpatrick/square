@@ -6,7 +6,7 @@ import genericDomain.networking.KtorApi
 class DirectoryAPI : KtorApi() {
 
     suspend fun getEmployees(): Result<ApiResponse> {
-        return get("employees_malformed.json")
+        return get("employees.json")
     }
 
 }
